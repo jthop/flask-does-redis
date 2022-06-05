@@ -14,12 +14,12 @@
 
 CONFIG 
 
-    FLASK_DOES_REDIS_URL or REDIS_URL
-    FLASK_DOES_REDIS_HOST or REDIS_HOST
-    FLASK_DOES_REDIS_PORT or REDIS_PORT
-    FLASK_DOES_REDIS_DB or REDIS_DB
-    FLASK_DOES_REDIS_USERNAME or REDIS_USERNAME
-    FLASK_DOES_REDIS_PASSWORD or REDIS_PASSWORD
+    REDIS_URL
+    REDIS_HOST
+    REDIS_PORT
+    REDIS_DB
+    REDIS_USERNAME
+    REDIS_PASSWORD
 
 HOW TO
 
@@ -44,7 +44,7 @@ HOW TO
 from redis import ConnectionPool
 
 
-__version__ = '0.2.1'
+__version__ = '0.2.2'
 __author__ = '@jthop'
 
 
@@ -70,7 +70,7 @@ class RedisFactory(ConnectionPool):
         Fetch config in the APP_REDIS_ namespace from the app.config dict.
         """
 
-        cfg = self.flask_app.config.get_namespace('APP_REDIS_')
+        cfg = self.flask_app.config.get_namespace('REDIS_')
         clean = {k: v for k, v in cfg.items() if v is not None}
         self._config = clean
 
