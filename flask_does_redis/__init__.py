@@ -24,18 +24,18 @@ CONFIG
 HOW TO
 
     app = Flask(__name__)
-    r = redis_factory.RedisFactory(app)
+    r = redis_manager.RedisManager(app)
 
     -OR-
 
-    r = redis_factory.RedisFactory()
+    r = redis_manager.RedisManager()
     def create_app():
         app = Flask(__name__)
         h.init_app(app)
 
     -THEN-
 
-    redis_instance = redis.Redis(connection_pool=r.pool)
+    instance = redis.Redis(connection_pool=r.pool)
     or
     obj.method_that_needs_redis(r.redis)
 
@@ -45,13 +45,13 @@ from redis import ConnectionPool
 from redis import Redis
 
 
-__version__ = '0.2.3'
+__version__ = '0.2.4'
 __author__ = '@jthop'
 
 
-class RedisFactory(ConnectionPool):
+class RedisManager(ConnectionPool):
     def __init__(self, app=None):
-        """Redis factory constructor.  Since we comply with app factory
+        """Redis manager constructor.  Since we comply with app factory
         the constructor is put off until init_app()
         Args:
             app: Flask app beinging initialized from.
@@ -68,7 +68,7 @@ class RedisFactory(ConnectionPool):
 
     def _fetch_config(self):
         """
-        Fetch config in the APP_REDIS_ namespace from the app.config dict.
+        Fetch config in the REDIS_ namespace from the app.config dict.
         """
 
         cfg = self.flask_app.config.get_namespace('REDIS_')
@@ -89,12 +89,12 @@ class RedisFactory(ConnectionPool):
             self.pool = ConnectionPool.from_url(url)
             with self.flask_app.app_context():
                 self.flask_app.logger.info(
-                    f'Redis Factory pool instantiated with {url}')
+                    f'Redis Manager pool instantiated with {url}')
         else:
             self.pool = ConnectionPool(**self._config)
             with self.flask_app.app_context():
                 self.flask_app.logger.info(
-                    f'Redis Factory pool instantiated with {self._config}')
+                    f'Redis Manager pool instantiated with {self._config}')
 
         if self.pool:
             self.redis = Redis(connection_pool=self.pool)
