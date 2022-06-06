@@ -59,7 +59,7 @@ from redis import ConnectionPool
 from redis import Redis
 
 
-__version__ = '0.3.1'
+__version__ = '0.3.2'
 __author__ = '@jthop'
 
 
@@ -117,21 +117,21 @@ class RedisManager(ConnectionPool):
         if self.pool:
             self.conn = Redis(connection_pool=self.pool)
 
-    def get(k):
+    def get(self, k):
         """
         Simple convenience wrapper
         """
 
         return self.conn.get(k)
 
-    def set(k, v):
+    def set(self, k, v):
         """
         Simple convenience wrapper
         """
 
         return self.conn.set(k, v)
 
-    def delete(k):
+    def delete(self, k):
         """
         Simple convenience wrapper
         """
