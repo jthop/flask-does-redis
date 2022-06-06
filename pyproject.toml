@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "flask-does-redis"
-version = "0.2.4"
+version = "0.3.1"
 description = "Flask extension to easily reuse redis connection pools"
 authors = ["jthop <jh@mode14.com>"]
 license = "MIT"

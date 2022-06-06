@@ -23,21 +23,35 @@ CONFIG
 
 HOW TO
 
+    from flask_does_redis import RedisManager    
     app = Flask(__name__)
-    r = redis_manager.RedisManager(app)
+    r = RedisManager(app)
 
     -OR-
 
-    r = redis_manager.RedisManager()
+    from flask_does_redis import RedisManager
+    r = RedisManager()
     def create_app():
         app = Flask(__name__)
-        h.init_app(app)
+        r.init_app(app)
 
     -THEN-
 
+    conn attribute is active connection
+    r.conn.ping()
+
+    pool attribute has connection pool
     instance = redis.Redis(connection_pool=r.pool)
-    or
-    obj.method_that_needs_redis(r.redis)
+
+    we also have convenience methods get(), set(), and delete()
+    r.set("foo", "bar")
+    r.get("foo")
+    r.delete("foo")
+
+    more advanced usage can be accomplished via conn
+
+    d = {'key1': 'val1', 'key2': 'val2', 'key3': 'val3'}
+    r.conn.mset(d)
 
 """
 
@@ -45,7 +59,7 @@ from redis import ConnectionPool
 from redis import Redis
 
 
-__version__ = '0.2.4'
+__version__ = '0.3.1'
 __author__ = '@jthop'
 
 
@@ -61,7 +75,7 @@ class RedisManager(ConnectionPool):
         self._name = None
         self.flask_app = None
         self.pool = None
-        self.redis = None
+        self.conn = None
 
         if app is not None:
             self.init_app(app)
@@ -84,18 +98,44 @@ class RedisManager(ConnectionPool):
         self._name = self.flask_app.import_name
         self._fetch_config()
 
+        # use the url if available
         url = self._config.get('url')
         if url:
             self.pool = ConnectionPool.from_url(url)
             with self.flask_app.app_context():
                 self.flask_app.logger.info(
                     f'Redis Manager pool instantiated with {url}')
+
+        # if no url is available, hopefully the remaining config has what is needed
         else:
             self.pool = ConnectionPool(**self._config)
             with self.flask_app.app_context():
                 self.flask_app.logger.info(
                     f'Redis Manager pool instantiated with {self._config}')
 
+        # as long as we have a pool, we can create a connection instance
         if self.pool:
-            self.redis = Redis(connection_pool=self.pool)
+            self.conn = Redis(connection_pool=self.pool)
+
+    def get(k):
+        """
+        Simple convenience wrapper
+        """
+
+        return self.conn.get(k)
+
+    def set(k, v):
+        """
+        Simple convenience wrapper
+        """
+
+        return self.conn.set(k, v)
+
+    def delete(k):
+        """
+        Simple convenience wrapper
+        """
+        
+        return self.conn.delete(k)
+
 
