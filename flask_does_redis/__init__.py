@@ -63,7 +63,7 @@ __version__ = '0.3.2'
 __author__ = '@jthop'
 
 
-class RedisManager(ConnectionPool):
+class RedisManager(object):
     def __init__(self, app=None):
         """Redis manager constructor.  Since we comply with app factory
         the constructor is put off until init_app()
