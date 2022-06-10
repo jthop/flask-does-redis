@@ -59,7 +59,7 @@ from redis import ConnectionPool
 from redis import Redis
 
 
-__version__ = '0.3.2'
+__version__ = '0.3.4'
 __author__ = '@jthop'
 
 
