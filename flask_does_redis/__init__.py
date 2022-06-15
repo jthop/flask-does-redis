@@ -59,7 +59,7 @@ from redis import ConnectionPool
 from redis import Redis
 
 
-__version__ = '0.3.5'
+__version__ = '0.3.7'
 __author__ = '@jthop'
 
 
@@ -94,6 +94,12 @@ class RedisManager(object):
         Args:
             app: Flask app beinging initialized from
         """
+
+        # Save this so we can use it later in the extension
+        if not hasattr(app, 'extensions'):
+            app.extensions = {}
+        app.extensions['flask-does-redis'] = self
+
         self.flask_app = app
         self._name = self.flask_app.import_name
         self._fetch_config()
