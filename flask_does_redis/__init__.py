@@ -59,8 +59,8 @@ from redis import ConnectionPool
 from redis import Redis
 
 
-__version__ = "0.3.8+build.1"
-__public_version__ = "0.3.8"
+__version__ = "0.3.9+build.2"
+__public_version__ = "0.3.9"
 __author__ = "@jthop"
 
 

@@ -22,4 +22,4 @@ dependencies = [
 dynamic = ["version"]
 
 [tool.setuptools.dynamic]
-version = {attr = "flask_does_redis.__version__"}
+version = {attr = "flask_does_redis.__public_version__"}

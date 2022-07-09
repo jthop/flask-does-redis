@@ -1,5 +1,6 @@
 [version]
-current = 0.3.7
+current = 0.3.8+build.1
+previous = 0.3.7
 
 [options]
 log_file = ican.log
@@ -19,3 +20,4 @@ step1 = git add .
 step2 = git commit -m "auto-commit for {{tag}}"
 step3 = git tag -a {{tag}} -m "automated tag for release {{tag}}" --sign
 step4 = git push origin master {{tag}}
+
