@@ -59,8 +59,8 @@ from redis import ConnectionPool
 from redis import Redis
 
 
-__version__ = "0.3.11+build.4"
-__public_version__ = "0.3.11"
+__version__ = "0.3.12+build.6"
+__public_version__ = "0.3.12"
 __author__ = "@jthop"
 
 
@@ -120,6 +120,7 @@ class RedisManager(object):
 
         # if no url is available, hopefully the remaining config has what is needed
         else:
+            self.connection_config.pop("url")
             self.pool = ConnectionPool(
                 **self.connection_config, decode_responses=self.decode_responses
             )
