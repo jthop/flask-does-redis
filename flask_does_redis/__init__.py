@@ -59,8 +59,8 @@ from redis import ConnectionPool
 from redis import Redis
 
 
-__version__ = "0.3.12+build.6"
-__public_version__ = "0.3.12"
+__version__ = "0.3.13+build.7"
+__public_version__ = "0.3.13"
 __author__ = "@jthop"
 
 
@@ -170,7 +170,7 @@ class RedisManager(object):
 
         return self.conn.get(k)
 
-    def set(self, k, v, secs=None):
+    def set(self, k, v, expire=None):
         """Wrapper for conn.set() but also allows
         you to supply an optional argument secs to set
         the key's expiration in with one line.
@@ -179,7 +179,7 @@ class RedisManager(object):
             pass
 
         result = self.conn.set(k, v)
-        if secs:
+        if expire:
             return self.expire(k, secs)
         return result
 
