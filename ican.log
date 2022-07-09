@@ -1,0 +1,57 @@
+07-09-2022 14:17:42 | DEBUG | discovered 0.1.0 @ CONFIG.version
+07-09-2022 14:17:42 | DEBUG | found git root @ /home/jhopper/projects/flask-does-redis
+07-09-2022 14:17:42 | INFO | Command '['git', 'describe', '--dirty', '--tags', '--long']' returned non-zero exit status 128. (code-12) v0.1.17+build.156
+07-09-2022 14:17:42 | INFO | Git style versions will be disabled.
+07-09-2022 14:17:42 | INFO | Possibly this is a new repo with no tags.
+07-09-2022 14:17:42 | WARNING | init COMPLETE
+07-09-2022 14:22:42 | DEBUG | parsing file config SEMANTIC[*.py]
+07-09-2022 14:22:42 | DEBUG | file section * in filename - *.py
+07-09-2022 14:22:42 | DEBUG | wildcard found: 1 files
+07-09-2022 14:22:42 | DEBUG | regex generated for __version__
+07-09-2022 14:22:42 | DEBUG | parsing file config PUBLIC[*.py]
+07-09-2022 14:22:42 | DEBUG | file section * in filename - *.py
+07-09-2022 14:22:42 | DEBUG | wildcard found: 1 files
+07-09-2022 14:22:42 | DEBUG | regex generated for __public_version__
+07-09-2022 14:22:42 | DEBUG | parsing RELEASE pipeline
+07-09-2022 14:22:42 | DEBUG | RELEASE.step1 - git add .
+07-09-2022 14:22:42 | DEBUG | RELEASE.step2 - git commit -m "auto-commit for {{tag}}"
+07-09-2022 14:22:42 | DEBUG | RELEASE.step3 - git tag -a {{tag}} -m "automated tag for release {{tag}}" --sign
+07-09-2022 14:22:42 | DEBUG | RELEASE.step4 - git push origin master {{tag}}
+07-09-2022 14:22:42 | DEBUG | discovered 0.3.7 @ CONFIG.version
+07-09-2022 14:22:42 | DEBUG | found git root @ /home/jhopper/projects/flask-does-redis
+07-09-2022 14:22:42 | INFO | Command '['git', 'describe', '--dirty', '--tags', '--long']' returned non-zero exit status 128. (code-12) v0.1.17+build.156
+07-09-2022 14:22:42 | INFO | Git style versions will be disabled.
+07-09-2022 14:22:42 | INFO | Possibly this is a new repo with no tags.
+07-09-2022 14:22:42 | DEBUG | show() COMPLETE
+07-09-2022 14:22:42 | WARNING | 0.3.7
+07-09-2022 14:22:47 | DEBUG | parsing file config SEMANTIC[*.py]
+07-09-2022 14:22:47 | DEBUG | file section * in filename - *.py
+07-09-2022 14:22:47 | DEBUG | wildcard found: 1 files
+07-09-2022 14:22:47 | DEBUG | regex generated for __version__
+07-09-2022 14:22:47 | DEBUG | parsing file config PUBLIC[*.py]
+07-09-2022 14:22:47 | DEBUG | file section * in filename - *.py
+07-09-2022 14:22:47 | DEBUG | wildcard found: 1 files
+07-09-2022 14:22:47 | DEBUG | regex generated for __public_version__
+07-09-2022 14:22:47 | DEBUG | parsing RELEASE pipeline
+07-09-2022 14:22:47 | DEBUG | RELEASE.step1 - git add .
+07-09-2022 14:22:47 | DEBUG | RELEASE.step2 - git commit -m "auto-commit for {{tag}}"
+07-09-2022 14:22:47 | DEBUG | RELEASE.step3 - git tag -a {{tag}} -m "automated tag for release {{tag}}" --sign
+07-09-2022 14:22:47 | DEBUG | RELEASE.step4 - git push origin master {{tag}}
+07-09-2022 14:22:47 | DEBUG | discovered 0.3.7 @ CONFIG.version
+07-09-2022 14:22:47 | DEBUG | found git root @ /home/jhopper/projects/flask-does-redis
+07-09-2022 14:22:47 | INFO | Command '['git', 'describe', '--dirty', '--tags', '--long']' returned non-zero exit status 128. (code-12) v0.1.17+build.156
+07-09-2022 14:22:47 | INFO | Git style versions will be disabled.
+07-09-2022 14:22:47 | INFO | Possibly this is a new repo with no tags.
+07-09-2022 14:22:47 | DEBUG | beginning bump of <PATCH>
+07-09-2022 14:22:47 | DEBUG | new value of <PATCH> - 8
+07-09-2022 14:22:47 | DEBUG | SEMANTIC[/home/jhopper/projects/flask-does-redis/flask_does_redis/__init__.py] - updating to 0.3.8+build.1
+07-09-2022 14:22:47 | DEBUG | SEMANTIC[/home/jhopper/projects/flask-does-redis/flask_does_redis/__init__.py] - found 1 matches
+07-09-2022 14:22:47 | DEBUG | SEMANTIC[/home/jhopper/projects/flask-does-redis/flask_does_redis/__init__.py] - update COMPLETE
+07-09-2022 14:22:47 | DEBUG | PUBLIC[/home/jhopper/projects/flask-does-redis/flask_does_redis/__init__.py] - updating to 0.3.8
+07-09-2022 14:22:47 | DEBUG | PUBLIC[/home/jhopper/projects/flask-does-redis/flask_does_redis/__init__.py] - found 1 matches
+07-09-2022 14:22:47 | DEBUG | PUBLIC[/home/jhopper/projects/flask-does-redis/flask_does_redis/__init__.py] - update COMPLETE
+07-09-2022 14:22:47 | DEBUG | version level = RELEASE
+07-09-2022 14:22:47 | DEBUG | running pipeline.RELEASE
+07-09-2022 14:22:47 | DEBUG | version level = RELEASE
+07-09-2022 14:22:47 | DEBUG | version level = RELEASE
+07-09-2022 14:22:47 | DEBUG | running cmd - ['git', 'add', '.']

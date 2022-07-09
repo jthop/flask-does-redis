@@ -12,7 +12,7 @@
 ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒
 ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒
 
-CONFIG 
+CONFIG
 
     REDIS_URL
     REDIS_HOST
@@ -23,7 +23,7 @@ CONFIG
 
 HOW TO
 
-    from flask_does_redis import RedisManager    
+    from flask_does_redis import RedisManager
     app = Flask(__name__)
     r = RedisManager(app)
 
@@ -59,11 +59,15 @@ from redis import ConnectionPool
 from redis import Redis
 
 
-__version__ = '0.3.7'
-__author__ = '@jthop'
+__version__ = "0.3.8+build.1"
+__public_version__ = "0.3.8"
+__author__ = "@jthop"
 
 
 class RedisManager(object):
+
+    CONN_CFG = ["url", "host", "port", "db", "username", "password"]
+
     def __init__(self, app=None):
         """Redis manager constructor.  Since we comply with app factory
         the constructor is put off until init_app()
@@ -71,23 +75,16 @@ class RedisManager(object):
             app: Flask app beinging initialized from.
         """
         self.__version__ = __version__
-        self._config = None
-        self._name = None
+        self.config = None
+        self.name = None
         self.flask_app = None
         self.pool = None
         self.conn = None
+        self.decode_responses = None
+        self.auto_serialize = None
 
         if app is not None:
             self.init_app(app)
-
-    def _fetch_config(self):
-        """
-        Fetch config in the REDIS_ namespace from the app.config dict.
-        """
-
-        cfg = self.flask_app.config.get_namespace('REDIS_')
-        clean = {k: v for k, v in cfg.items() if v is not None}
-        self._config = clean
 
     def init_app(self, app):
         """the init_app method called from the app_factory
@@ -95,53 +92,106 @@ class RedisManager(object):
             app: Flask app beinging initialized from
         """
 
-        # Save this so we can use it later in the extension
-        if not hasattr(app, 'extensions'):
+        if not hasattr(app, "extensions"):
             app.extensions = {}
-        app.extensions['flask-does-redis'] = self
-
+        app.extensions["flask-does-redis"] = self
         self.flask_app = app
-        self._name = self.flask_app.import_name
-        self._fetch_config()
+        self.name = self.flask_app.import_name
 
-        # use the url if available
-        url = self._config.get('url')
-        if url:
-            self.pool = ConnectionPool.from_url(url)
-            with self.flask_app.app_context():
-                self.flask_app.logger.info(
-                    f'Redis Manager pool instantiated with {url}')
-
-        # if no url is available, hopefully the remaining config has what is needed
-        else:
-            self.pool = ConnectionPool(**self._config)
-            with self.flask_app.app_context():
-                self.flask_app.logger.info(
-                    f'Redis Manager pool instantiated with {self._config}')
+        self._set_default_config(app)
+        self._parse_config(app)
+        self._setup_pool()
 
         # as long as we have a pool, we can create a connection instance
         if self.pool:
             self.conn = Redis(connection_pool=self.pool)
 
+    def _setup_pool(self):
+        # use the url if available
+        url = self.config.get("url")
+        if url:
+            self.pool = ConnectionPool.from_url(
+                url, decode_responses=self.decode_responses
+            )
+            with self.flask_app.app_context():
+                self.flask_app.logger.info(
+                    f"Redis Manager pool instantiated with {url}"
+                )
+
+        # if no url is available, hopefully the remaining config has what is needed
+        else:
+            self.pool = ConnectionPool(
+                **self.connection_config, decode_responses=self.decode_responses
+            )
+            with self.flask_app.app_context():
+                self.flask_app.logger.info(
+                    f"Redis Manager pool instantiated with {self.cnx_cfg}"
+                )
+
+    def _set_default_config(self, app):
+        """Default config for our flask extension."""
+        app.config.setdefault("REDIS_DECODE_RESPONSES", True)
+        app.config.setdefault("REDIS_AUTO_SERIALIZE", True)
+
+        app.config.setdefault("REDIS_HOST", "redis")
+        app.config.setdefault("REDIS_URL", None)
+        app.config.setdefault("REDIS_PORT", None)
+        app.config.setdefault("REDIS_DB", None)
+        app.config.setdefault("REDIS_USER", None)
+        app.config.setdefault("REDIS_PASS", None)
+
+    def _parse_config(self, app):
+        """
+        Fetch config in the REDIS_ namespace from the app.config dict.
+        """
+
+        cfg = app.config.get_namespace("REDIS_")
+        clean = {k: v for k, v in cfg.items() if v is not None}
+        self.config = clean
+        self.decode_responses = clean.get("decode_responses")
+        self.auto_serialize = clean.get("auto_serialize")
+
+        self.connection_config = dict(
+            url=clean.get("url"),
+            host=clean.get("host"),
+            port=clean.get("port"),
+            db=clean.get("db"),
+            username=clean.get("username"),
+            password=clean.get("password"),
+        )
+
     def get(self, k):
         """
         Simple convenience wrapper
         """
+        if self.auto_serialize:
+            pass
 
         return self.conn.get(k)
 
-    def set(self, k, v):
+    def set(self, k, v, secs=None):
+        """Wrapper for conn.set() but also allows
+        you to supply an optional argument secs to set
+        the key's expiration in with one line.
         """
-        Simple convenience wrapper
-        """
+        if self.auto_serialize:
+            pass
 
-        return self.conn.set(k, v)
+        result = self.conn.set(k, v)
+        if secs:
+            return self.expire(k, secs)
+        return result
 
     def delete(self, k):
         """
         Simple convenience wrapper
         """
-        
+
         return self.conn.delete(k)
 
+    def expire(self, k, secs):
+        """
+        Simple convenience wrapper
+        """
 
+        return self.conn.expire(k, secs)

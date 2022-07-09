@@ -1,0 +1,21 @@
+[version]
+current = 0.3.7
+
+[options]
+log_file = ican.log
+
+[file: semantic]
+file = *.py
+style = semantic
+variable = __version__
+
+[file: public]
+file = *.py
+style = public
+variable = __public_version__
+
+[pipeline: release]
+step1 = git add .
+step2 = git commit -m "auto-commit for {{tag}}"
+step3 = git tag -a {{tag}} -m "automated tag for release {{tag}}" --sign
+step4 = git push origin master {{tag}}
