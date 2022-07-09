@@ -59,8 +59,8 @@ from redis import ConnectionPool
 from redis import Redis
 
 
-__version__ = "0.3.9+build.2"
-__public_version__ = "0.3.9"
+__version__ = "0.3.10+build.3"
+__public_version__ = "0.3.10"
 __author__ = "@jthop"
 
 
@@ -125,7 +125,7 @@ class RedisManager(object):
             )
             with self.flask_app.app_context():
                 self.flask_app.logger.info(
-                    f"Redis Manager pool instantiated with {self.cnx_cfg}"
+                    f"Redis Manager pool instantiated with {self.config}"
                 )
 
     def _set_default_config(self, app):
@@ -146,7 +146,7 @@ class RedisManager(object):
         """
 
         cfg = app.config.get_namespace("REDIS_")
-        clean = {k: v for k, v in cfg.items() if v is not None}
+        clean = z{k: v for k, v in cfg.items() if v is not None}
         self.config = clean
         self.decode_responses = clean.get("decode_responses")
         self.auto_serialize = clean.get("auto_serialize")

@@ -94,3 +94,42 @@
 07-09-2022 15:38:32 | DEBUG | version level = RELEASE
 07-09-2022 15:38:32 | DEBUG | version level = RELEASE
 07-09-2022 15:38:32 | DEBUG | running cmd - ['git', 'add', '.']
+07-09-2022 15:38:32 | DEBUG | rendered cmd: git commit -m "auto-commit for v0.3.9"
+07-09-2022 15:38:32 | DEBUG | running cmd - ['git', 'commit', '-m', 'auto-commit for v0.3.9']
+07-09-2022 15:38:35 | DEBUG | rendered cmd: git tag -a v0.3.9 -m "automated tag for release v0.3.9" --sign
+07-09-2022 15:38:35 | DEBUG | running cmd - ['git', 'tag', '-a', 'v0.3.9', '-m', 'automated tag for release v0.3.9', '--sign']
+07-09-2022 15:38:36 | DEBUG | rendered cmd: git push origin master v0.3.9
+07-09-2022 15:38:36 | DEBUG | running cmd - ['git', 'push', 'origin', 'master', 'v0.3.9']
+07-09-2022 15:38:37 | DEBUG | persisting version - 0.3.9+build.2
+07-09-2022 15:38:37 | DEBUG | wrote config file
+07-09-2022 15:38:37 | DEBUG | bump() COMPLETE
+07-09-2022 15:38:37 | WARNING | Version: 0.3.9+build.2
+07-09-2022 16:07:55 | DEBUG | parsing file config SEMANTIC[*.py]
+07-09-2022 16:07:55 | DEBUG | file section * in filename - *.py
+07-09-2022 16:07:55 | DEBUG | wildcard found: 1 files
+07-09-2022 16:07:55 | DEBUG | regex generated for __version__
+07-09-2022 16:07:55 | DEBUG | parsing file config PUBLIC[*.py]
+07-09-2022 16:07:55 | DEBUG | file section * in filename - *.py
+07-09-2022 16:07:55 | DEBUG | wildcard found: 1 files
+07-09-2022 16:07:55 | DEBUG | regex generated for __public_version__
+07-09-2022 16:07:55 | DEBUG | parsing RELEASE pipeline
+07-09-2022 16:07:55 | DEBUG | RELEASE.step1 - git add .
+07-09-2022 16:07:55 | DEBUG | RELEASE.step2 - git commit -m "auto-commit for {{tag}}"
+07-09-2022 16:07:55 | DEBUG | RELEASE.step3 - git tag -a {{tag}} -m "automated tag for release {{tag}}" --sign
+07-09-2022 16:07:55 | DEBUG | RELEASE.step4 - git push origin master {{tag}}
+07-09-2022 16:07:55 | DEBUG | discovered 0.3.9+build.2 @ CONFIG.version
+07-09-2022 16:07:55 | DEBUG | found git root @ /home/jhopper/projects/flask-does-redis
+07-09-2022 16:07:55 | DEBUG | discovered 0.3.9-dev.DIRTY+59170cc.2 @ GIT.version
+07-09-2022 16:07:55 | DEBUG | beginning bump of <PATCH>
+07-09-2022 16:07:55 | DEBUG | new value of <PATCH> - 10
+07-09-2022 16:07:55 | DEBUG | SEMANTIC[/home/jhopper/projects/flask-does-redis/flask_does_redis/__init__.py] - updating to 0.3.10+build.3
+07-09-2022 16:07:55 | DEBUG | SEMANTIC[/home/jhopper/projects/flask-does-redis/flask_does_redis/__init__.py] - found 1 matches
+07-09-2022 16:07:55 | DEBUG | SEMANTIC[/home/jhopper/projects/flask-does-redis/flask_does_redis/__init__.py] - update COMPLETE
+07-09-2022 16:07:55 | DEBUG | PUBLIC[/home/jhopper/projects/flask-does-redis/flask_does_redis/__init__.py] - updating to 0.3.10
+07-09-2022 16:07:55 | DEBUG | PUBLIC[/home/jhopper/projects/flask-does-redis/flask_does_redis/__init__.py] - found 1 matches
+07-09-2022 16:07:55 | DEBUG | PUBLIC[/home/jhopper/projects/flask-does-redis/flask_does_redis/__init__.py] - update COMPLETE
+07-09-2022 16:07:55 | DEBUG | version level = RELEASE
+07-09-2022 16:07:55 | DEBUG | running pipeline.RELEASE
+07-09-2022 16:07:55 | DEBUG | version level = RELEASE
+07-09-2022 16:07:55 | DEBUG | version level = RELEASE
+07-09-2022 16:07:55 | DEBUG | running cmd - ['git', 'add', '.']
