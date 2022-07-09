@@ -59,8 +59,8 @@ from redis import ConnectionPool
 from redis import Redis
 
 
-__version__ = "0.3.10+build.3"
-__public_version__ = "0.3.10"
+__version__ = "0.3.11+build.4"
+__public_version__ = "0.3.11"
 __author__ = "@jthop"
 
 
@@ -146,7 +146,7 @@ class RedisManager(object):
         """
 
         cfg = app.config.get_namespace("REDIS_")
-        clean = z{k: v for k, v in cfg.items() if v is not None}
+        clean = {k: v for k, v in cfg.items() if v is not None}
         self.config = clean
         self.decode_responses = clean.get("decode_responses")
         self.auto_serialize = clean.get("auto_serialize")
