@@ -59,8 +59,8 @@ from redis import ConnectionPool
 from redis import Redis
 
 
-__version__ = "0.3.13+build.7"
-__public_version__ = "0.3.13"
+__version__ = "0.3.14+build.8"
+__public_version__ = "0.3.14"
 __author__ = "@jthop"
 
 
@@ -180,7 +180,7 @@ class RedisManager(object):
 
         result = self.conn.set(k, v)
         if expire:
-            return self.expire(k, secs)
+            return self.expire(k, expire)
         return result
 
     def delete(self, k):
