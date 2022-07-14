@@ -59,8 +59,8 @@ from redis import ConnectionPool
 from redis import Redis
 
 
-__version__ = "0.3.14+build.8"
-__public_version__ = "0.3.14"
+__version__ = "0.3.15+build.9"
+__public_version__ = "0.3.15"
 __author__ = "@jthop"
 
 
@@ -131,7 +131,7 @@ class RedisManager(object):
 
     def _set_default_config(self, app):
         """Default config for our flask extension."""
-        app.config.setdefault("REDIS_DECODE_RESPONSES", True)
+        app.config.setdefault("REDIS_DECODE_RESPONSES", False)
         app.config.setdefault("REDIS_AUTO_SERIALIZE", True)
 
         app.config.setdefault("REDIS_HOST", "redis")
